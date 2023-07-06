@@ -1,0 +1,16 @@
+{
+  "name": "dash_final",
+  "version": "1.0.0",
+  "description": "\"the finalizied version of the dash\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "set dev=1 && electron .",
+    "start": "electron .",
+    "run": "set can=1 && electron ."
+  },
+  "author": "Aniruddh Chauhan",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.2.0"
+  }
+}
