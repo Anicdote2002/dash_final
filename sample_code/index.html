@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Hello from Electron renderer!</title>
+  </head>
+  <body>
+    <h1>Hello from Electron renderer!</h1>
+    <p>👋</p>
+  </body> 
+  <link rel="stylesheet" href="css/gauge.css">
+
+  <div class="gauge">
+  <div class="gauge__body">
+    <div class="gauge__fill"></div>
+    <div class="gauge__cover"></div>
+  </div>
+</div>
+<script>
+  const gaugeElement = document.querySelector(".gauge");
+
+function setGaugeValue(gauge, value) {
+  if (value < 0 || value > 1) {
+    return;
+  }
+
+  gauge.querySelector(".gauge__fill").style.transform = `rotate(${
+    value / 2
+  }turn)`;
+  gauge.querySelector(".gauge__cover").textContent = `${Math.round(
+    value * 100
+  )}%`;
+}
+
+setGaugeValue(gaugeElement, 
+              0.9);
+
+</script>
+</html>

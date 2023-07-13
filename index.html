@@ -1,48 +1,190 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <title>Hello from Electron renderer!</title>
-  </head>
-  <body>
-    <h1>Hello from Electron renderer!</h1>
-    <p>👋</p>
-  </body> 
-  <link rel="stylesheet" href="css/gauge.css">
 
-  <div class="gauge">
-  <div class="gauge__body">
-    <div class="gauge__fill"></div>
-    <div class="gauge__cover"></div>
-  </div>
-</div>
-<script>
-  const gaugeElement = document.querySelector(".gauge");
+<head>
+    <link rel="stylesheet" type="text/css" href="./Debug.css" />
+    <link href="./resources/roboto.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./main.css" />
+</head>
 
-function setGaugeValue(gauge, value) {
-  if (value < 0 || value > 1) {
-    return;
-  }
+<body id="body" onkeydown="fault_state(event)">
 
-  gauge.querySelector(".gauge__fill").style.transform = `rotate(${
-    value / 2
-  }turn)`;
-  gauge.querySelector(".gauge__cover").textContent = `${Math.round(
-    value * 100
-  )}%`;
-}
+    <div id="container">
 
-setGaugeValue(gaugeElement, 
-              0.9);
+        <!-- Float Left -->
+        <div id="notTemps">
+            <!--<div id="rpmGauge">-->
+            <div id="rpmGauge">
+                <svg x="0px" y="0px" viewBox="0 0 800 480">
+                  <path id="rpmTrail"
+                  fill-opacity="0"
+                  stroke-width="75"
+                  stroke="#ebebebb4"
+                  d="M 25 50 L 845 50 "
+                  /> 
+                  <!--d="M 30 300 L 100 150 Q 150 50 250 50 L 840 50"-->
+                  <!--d="M 234 12 L 830 12 Q 840 12 840 22 L 840 78 Q 
+                    840 88 830 88 L 250 88 Q 163 88 126 180 L 67 310 
+                    M 234 12 Q 137 12 77 118 L -1 274 Q -5 283 4 287 
+                    L 56 313 Q 64 316 67 310"-->
+                    <!--#172336-->
+                 <circle cx="345" cy="240" r="120"
+                  stroke="#000000" stroke-width="3" fill="#29ECFF"/>
+                 <path id="rpmPath"
+                    fill-opacity="0" 
+                    stroke="#030951"
+                    stroke-width="76"
+                    d="M 25 50 L 845 50"
+                  />
+                <path id="rpmBorder" 
+                    fill-opacity="0"
+                    stroke="#000"
+                    stroke-width="5"
+                    d="M 25 12 L 845 12 
+                    a 20,20 0 0 1 20,20 
+                    v38 
+                    a 20,20 0 0 1-20,20 
+                    M 845 90 L 25 90  
+                    a 20,20 0 0 1-20,-20 
+                    v-38
+                    a 20,20 0 0 1  20,-20 
+                    
+                    ";
+                  />
+                  <!--change 10,10 to 20,20 -->
+                </svg>
 
-</script>
+                <!--<p id="rpm2">2</p>
+                <p id="rpm4">4</p>
+                <p id="rpm6">6</p>
+                <p id="maxRPM">8</p>-->
+                <p id="rpm2">40</p>
+                <p id="rpm4">100</p>
+                <p id="rpm6">140</p>
+                <p id="maxRPM">180</p>
+                
+                
+                
+
+            </div>
+            <!--<p id="rpmScale">x1000 r/min</p>-->
+            
+            <p  id="rpm" >
+			<!--rpm has been changed in testdata.js and can.js to instead show mph...everything works as it is 
+			to make rpm display back simply uncomment-->
+		    <!--<p id="rpm">
+                <p class="data" id="debugmph" style="color:black">0</p>
+                 <!--Added line-->
+            </p>
+            
+            <!-- Just for fun....remove? -->
+            <!-- <img id="logo" src="./resources/bolt_logo.png" />  -->
+            <!-- Format Space -->
+           <h1 id="error" style="display:none">
+                Error
+            </h1>        
+            <br>
+            <br>
+            <!-- Open The Modal -->
+            <div><button id="myBtn">Open Debug Screen</button></div>
+        </div> 
+        <!-- Float Right -->  
+        <div id="soc"></div><svg id="socBG"><rect x="36" y="17" rx="5px" ry="5px" stroke="black" stroke-width="4px" /></svg>
+        <div id="showSOC"></div>
+       
+        
+        <div id="temps"> 
+            <table id="tempTable">
+                <tr>
+                    <td>MC Temp</td>
+                    <td id="MCTemp" class="tempval">0</td>
+                </tr>
+                <tr>
+                    <td>Motor Temp</td>
+                    <td id="motorTemp" class="tempval">0</td>
+                </tr>
+                <tr>
+                    <td>Max Motor Temp</td>
+                    <td id="maxMotorTemp" class="tempval">0</td>
+                </tr>
+                <tr>
+                    <td>High Cell Temp</td>
+                    <td id="maxCellTemp" class="tempval">0</td>
+                </tr>
+                <tr>
+                    <td>Low Cell Temp</td>
+                    <td id="minCellTemp" class="tempval">0</td>
+                </tr>
+            </table>
+            <div id="showTemps"></div>
+        </div>        
+    </div>   
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal" style="display:none;">
+      <!-- Row 1 -->
+      <div class="flex-container" style="height: 37.5%">
+        <div><h1 class="main_param">RPM:<h1 class="pad">AAAAAA</h1></h1><p class="data" id="debugrpm">0</p></div>
+        <div><h1 class="main_param">SOC:<h1 class="pad">AAAAAA</h1></h1><p class="data" id="debugsoc">0</p></div>
+        <div><h1 class="main_param">MC TEMP:<h1 class="pad">AAAAAA</h1></h1><p class="data" id="debugmctemp">0</p></div>
+        <div><h1 class="main_param">MTR TEMP:<h1 class="pad">AAAAAA</h1></h1><p class="data" id="debugmotortemp">0</p></div>
+        <div><h1 class="main_param">HIGH CELL TEMP:</h1><p class="data" id="debughcelltemp">0</p></div>
+        <div><h1 class="main_param">3QTEMP</h1></h1><p class="data" id="debug3qtemp">0</p></div>
+        <!--new line added by Aniruddh-3qtemp-->
+      </div>
+      <!-- Row 2 -->
+      <div class="flex-container" style="height: 37.5%">
+        <div><h1 class="main_param">LOW CELL TEMP:</h1><p class="data" id="debuglcelltemp">0</p></div>
+        <div><h1 class="main_param">HIGH MTR TEMP:</h1><p class="data" id="debughmtrtemp">0</p></div>
+        <div><h1 class="main_param">DCL:<h1 class="pad">AAAAAA</h1></h1><p class="data" id="debugdcl">0</p></div>
+        <div><h1 class="main_param">MPH:<h1 class="pad">AAAAAA</h1></h1><p class="data" id="debugmph">0</p></div>
+        <div><h1 class="main_param">DC BUS VOLTAGE:</h1><p class="data" id="debugdcbus">0</p></div>
+        <div><h1 class="main_param">DC BUS AMPERAGE:</h1><p class="data" id="debugdcbusa">0</p></div>
+      </div>
+      <!-- Row 3 -->
+      <div class="flex-container" style="height: 22%">
+        <div><h1 class="sub_param" id="debugError">Error: </h1></div>
+      </div>
+    </div>
+
+    <div id="debugMenu">
+      <table>
+        <tr>
+          <th id="debugHeader">Debug</th>
+        </tr>
+        <tr>
+          <td id="debugToggle">Toggle debug menu</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="gaugesMenu">
+      <table>
+        <tr>
+          <th id="gaugesHeader">Gauges</th>
+        </tr>
+        <tr>
+          <td id="rpmToggle">Toggle RPM gauge</td>
+        </tr>
+        <tr>
+          <td id="socToggle">Toggle SOC gauge</td>
+        </tr>
+        <tr>
+          <td id="tempsToggle">Toggle temps gauge</td>
+        </tr>
+      </table>
+    </div>
+
+    <script src="node_modules/progressbar.js/dist/progressbar.min.js"></script>
+
+    <script src="./scripts/Constants.js"></script>
+    <script src="./scripts/scripts.js"></script>
+    <script src="./scripts/Fault.js"></script>
+    <script src="./scripts/Menu.js"></script>
+    <script src="./scripts/TestData.js"></script>
+    <script src="./scripts/DevMenu.js"></script>
+    <script src="./scripts/Can.js"></script>
+</body>
+
+
 </html>

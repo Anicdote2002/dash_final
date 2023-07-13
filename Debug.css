@@ -1,0 +1,79 @@
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0%; /* Location of the box */
+    top: 0%;
+    width: 100%; /* Size of the Box */
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #cdcdcd; /* Light grey */
+    zoom: 90%;
+}
+
+#myBtn {
+  display: none;
+}
+/* The Close Button */
+.close {
+    display: flex;
+    background-color: #B53737;
+    border: 1px solid #d3d3d3;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-weight: bold;
+    line-height: 40px;
+}
+.close > div {
+    flex: 1 0 2px;
+    color: #ffffff;
+    font-family: calibri;
+    font-size: 2vw;           
+    text-align: center;
+    line-height: 20px;
+    margin: 5px auto;
+}
+/* Flexbox Container*/
+.flex-container {
+    display: flex;
+    height: 37.5%;
+  }
+/* Flexbox Boxes*/
+.flex-container > div {
+    flex: 1 0 2px;
+    background: #ff6d19;
+    text-align: center;
+    /* line-height: 0px; */
+    margin: 0.5% 0.5%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(238, 209, 209, 0.19);
+    font-family: 'Roboto', sans-serif;
+}
+/* Parameters */
+h1.main_param {
+  font-family: 'Roboto', sans-serif;
+  font-size: 3vw; 
+  color: #ffffff;
+}
+
+/* Parameters (3rd row) */
+h1.sub_param {
+  font-family: 'Roboto', sans-serif;
+  font-size: 6vw; 
+  color: #ffffff;
+  margin-top: 3vw; /* controls how far the text lie below the heading */
+}
+/* Numbers */
+p.data {
+  font-family: 'Roboto', sans-serif;
+  font-size: 5.5vw; 
+  color: #ffffff;
+  margin-top: 1vw; /* controls how far the numbers lie below the heading */
+}
+/* Orange padding text to get spacing right */
+.pad {
+  color: #ff6d19;
+  margin-top: -16px;
+  font-size: 3vw;
+  font-family: 'Roboto', sans-serif;
+
+}

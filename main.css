@@ -1,0 +1,228 @@
+/* For reference:
+chicago maroon: 134,31,65   #8b1f41
+burnt orange: 232,119,34    #e87722
+hokie stone: 117, 120, 123  #75787b
+*/
+
+* {
+    user-select: none; /* Text doesn't highlight when double clicked/tapped */
+}
+
+#error {
+    font-family: 'tahoma';
+}
+
+@font-face {
+    font-family: 'digital-7';
+    src: url('./resources/digital-7.ttf');
+}
+
+@font-face {
+    font-family: 'tahoma';
+    src: url('./resources/Tahoma.ttf');
+}
+
+body {
+    background-color: #ebebeb6c;
+}
+
+td {
+    padding: 10px 4px;
+    text-align: center;
+    box-shadow: 2px 2px 1px #75787b;
+    border-radius: 7px;
+}
+
+tr:nth-child(even) {
+    /*background-color: #ebebeb94;*/
+    /* chicago maroon?*/
+    /*background-color: rgba(134, 31, 65, 0.5);*/ 
+    background-color: rgba(232, 119, 34, 0.5); 
+}
+
+tr:nth-child(odd) {
+    /*background-color: #24407059;*/
+    /* burnt orange? */
+    background-color: rgba(232, 119, 34, 0.5); 
+}
+
+.tempval {
+    font-family: 'digital-7';
+    font-size: 30px;
+    width: 85px;
+}
+
+#logo {
+    width: 200px;
+    height: 84px;
+    position: fixed;
+    left: 8px;
+    bottom: 15px;
+    opacity: 0.8;
+    zoom: 110%;
+}
+
+#rpm {
+    font-family: 'digital-7';
+    /*font-family: 'tahoma';*/
+    font-size: 140px;
+    position: fixed;
+    top: 50px;
+    left: 250px;
+}
+/*Added by Ani the mph*/
+#mph {
+    /*font-family: 'digital-7';*/
+    font-family: 'tahoma';
+    font-size: 120px;
+    position: fixed;
+    top: 50px;
+    left: 180px;
+}
+
+#socBG {
+    width: 120px;
+    height: 330px;
+    position: fixed;
+    bottom: -10px;
+    right: 295px;
+    z-index: 1;
+    zoom: 89%;
+}
+
+#socBG rect {
+    width: 59px;
+    height: 243px;
+    fill: none;
+}
+
+#rpmGauge svg {
+    position: fixed;
+    left: -30px;
+    top: 50px;
+    width: 800px;
+    height: 400px;
+}
+
+#soc svg {
+    /* filter: drop-shadow(-10px 10px 3px rgb(104, 104, 104)); */
+    transform-origin: 150px 100px;
+    transform: rotate(-90deg);
+    zoom: 90%;
+}
+
+#soc {
+    float: right;
+    position: fixed;
+    /* Awkward numbers bc of the rotation */
+    bottom: 223px; /*223px*/
+    right: 112px;
+}
+
+#temps {
+    position: fixed;
+    bottom: 15px;
+    right: 10px;
+    float: right;
+    text-align: right;
+    font-family: 'tahoma';
+    font-size: 12px;
+    zoom: 130%;
+}
+
+#showTemps {
+    padding: 25px;
+    /* background-color: #e5eefdb4; */
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-family: 'tahoma';
+    font-size: 12px;
+    display: none;
+    user-select: none; /* Text doesn't highlight when double clicked/tapped */
+}
+
+#showSOC {
+    padding: 50px;
+    position: fixed;
+    /* border: 2px solid black; */
+    bottom: 0;
+    right: 260px;
+    display: none;
+    user-select: none;
+}
+
+#notTemps {
+    float: center;
+}
+
+#error {
+    color: white;
+}
+
+#rpmGauge p {
+    font-family: 'digital-7';
+    font-size: 35px;
+    position: fixed;
+}
+
+#rpmScale {
+    top: 0px;
+    left: 3px;
+    font-family: 'tahoma';
+}
+
+#maxRPM {
+    top: -15px;
+    left: 724px;
+}
+
+#rpm6 {
+    top: -15px;
+    left: 540px;
+}
+
+#rpm4 {
+    top: -15px;
+    left: 338px;
+}
+
+#rpm2 {
+    top: -15px; 
+    left: 120px;
+    /*top: 25 px for curved dashbar*/
+}
+
+#debugMenu {
+    bottom: 0;
+    left: 5px;
+    font-family: 'tahoma';
+    position: absolute;
+    margin-bottom: -45px;
+    overflow: hidden;
+    transition: margin-bottom 0.3s ease-in-out;
+    z-index: 999;
+}
+
+#debugHeader, #gaugesHeader {
+    border-radius: 7px 7px 0px 0px;
+    text-align: center;
+    box-shadow: 2px 2px 1px #75787b;
+    line-height: 200%;
+}
+
+#debugMenu.expanded, #gaugesMenu.expanded {
+    margin-bottom: 0px;
+}
+
+#gaugesMenu {
+    bottom: 0;
+    left: 160px;
+    position: absolute;
+    margin-bottom: -128px;
+    font-family: 'tahoma';
+    overflow: hidden;
+    transition: margin-bottom 0.3s ease-in-out;
+    z-index: 999;
+}
+
