@@ -5,7 +5,8 @@
     <link rel="stylesheet" type="text/css" href="./Debug.css" />
     <link href="./resources/roboto.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./main.css" />
-</head>
+    <script src="node_modules/canvas-gauges/gauge.min.js"></script>
+  </head>
 
 <body id="body" onkeydown="fault_state(event)">
 
@@ -14,75 +15,58 @@
         <!-- Float Left -->
         <div id="notTemps">
             <!--<div id="rpmGauge">-->
-            <div id="rpmGauge">
-                <svg x="0px" y="0px" viewBox="0 0 800 480">
-                  <path id="rpmTrail"
-                  fill-opacity="0"
-                  stroke-width="75"
-                  stroke="#ebebebb4"
-                  d="M 25 50 L 845 50 "
-                  /> 
-                  
-                 <circle cx="345" cy="240" r="120"
-                  stroke="#000000" stroke-width="3" fill="#29ECFF"/>
-                 <path id="rpmPath"
-                    fill-opacity="0" 
-                    stroke="#030951"
-                    stroke-width="76"
-                    d="M 25 50 L 845 50"
-                  />
-                <path id="rpmBorder" 
-                    fill-opacity="0"
-                    stroke="#000"
-                    stroke-width="5"
-                    d="M 25 12 L 845 12 
-                    a 20,20 0 0 1 20,20 
-                    v38 
-                    a 20,20 0 0 1-20,20 
-                    M 845 90 L 25 90  
-                    a 20,20 0 0 1-20,-20 
-                    v-38
-                    a 20,20 0 0 1  20,-20 
-                    
-                    ";
-                  />
-                  <!--change 10,10 to 20,20 -->
-                </svg>
-
-                
-                <p id="rpm2">40</p>
-                <p id="rpm4">100</p>
-                <p id="rpm6">140</p>
-                <p id="maxRPM">180</p>
-                
-                
-                
-
-            </div>
-            <!--<p id="rpmScale">x1000 r/min</p>-->
+              <div>
+                <canvas data-type="radial-gauge"
+                data-width="400"
+                data-height="400"
+                data-units="MpH"
+                data-title="false"
+                data-value="0"
+                data-min-value="0"
+                data-max-value="220"
+                data-major-ticks="0,20,40,60,80,100,120,140,160,180,200,220"
+                data-minor-ticks="2"
+                data-stroke-ticks="false"
+                data-highlights='[
+                    { "from": 0, "to": 50, "color": "rgba(0,255,0,.15)" },
+                    { "from": 50, "to": 100, "color": "rgba(255,255,0,.15)" },
+                    { "from": 100, "to": 150, "color": "rgba(255,30,0,.25)" },
+                    { "from": 150, "to": 200, "color": "rgba(255,0,225,.25)" },
+                    { "from": 200, "to": 220, "color": "rgba(0,0,255,.25)" }
+                ]'
+                data-color-plate="#222"
+                data-color-major-ticks="#f5f5f5"
+                data-color-minor-ticks="#ddd"
+                data-color-title="#fff"
+                data-color-units="#ccc"
+                data-color-numbers="#eee"
+                data-color-needle-start="rgba(240, 128, 128, 1)"
+                data-color-needle-end="rgba(255, 160, 122, .9)"
+                data-value-box="true"
+                data-animation-rule="bounce"
+                data-animation-duration="500"
+                data-font-value="Led"
+                data-animated-value="true"
+                ></canvas>
+                <button onclick="animateGauges()">Animate</button>
+                <button onclick="stopGaugesAnimation()">Stop animation</button>
+              </div>
+              <!-- <div id="soc"></div><svg id="socBG"><rect x="36" y="17" rx="5px" ry="5px" stroke="black" stroke-width="4px" /></svg>
+              <div id="showSOC"></div> -->
+        </div>
+          
             
-            <p  id="rpm" >
-			<!--rpm has been changed in testdata.js and can.js to instead show mph...everything works as it is 
-			to make rpm display back simply uncomment-->
-		    <!--<p id="rpm">
-                <p class="data" id="debugmph" style="color:black">0</p>
-                 <!--Added line-->
-            </p>
             
-            <!-- Just for fun....remove? -->
-            <!-- <img id="logo" src="./resources/bolt_logo.png" />  -->
-            <!-- Format Space -->
-           <h1 id="error" style="display:none">
+             <h1 id="error" style="display:none">
                 Error
             </h1>        
             <br>
             <br>
-            <!-- Open The Modal -->
-            <div><button id="myBtn">Open Debug Screen</button></div>
-        </div> 
+           
+            <div><button id="myBtn">Open Debug Screen</button></div> 
+         
         <!-- Float Right -->  
-        <div id="soc"></div><svg id="socBG"><rect x="36" y="17" rx="5px" ry="5px" stroke="black" stroke-width="4px" /></svg>
-        <div id="showSOC"></div>
+       
        
         
         <div id="temps"> 
@@ -166,16 +150,38 @@
         </tr>
       </table>
     </div>
-
+    <!-- <script>
+      
+      var timers = [];
+      
+      function animateGauges() {
+          document.gauges.forEach(function(gauge) {
+              timers.push(setInterval(function() {
+                  var min = gauge.options.minValue - 20;
+                  var max = gauge.options.maxValue + 20;
+      
+                  gauge.value = min + Math.random() * (max - min);
+              }, gauge.animation.duration + 50));
+          });
+      }
+      
+      function stopGaugesAnimation() {
+          timers.forEach(function(timer) {
+              clearInterval(timer);
+          });
+      }
+      </script> -->
     <script src="node_modules/progressbar.js/dist/progressbar.min.js"></script>
+    <script src ="animate.js"></script>
 
-    <script src="scripts/Constants.js"></script>
-    <script src="scripts/scripts.js"></script>
-    <script src="scripts/Fault.js"></script>
-    <script src="scripts/Menu.js"></script>
-    <script src="scripts/TestData.js"></script>
-    <script src="scripts/DevMenu.js"></script>
-    <script src="scripts/Can.js"></script>
+    <script               src="./scripts/Constants.js"></script>
+    <script type="module" src="./scripts/scripts.js"></script>
+    <script type="module" src="./scripts/Fault.js"></script>
+    <script               src="./scripts/Menu.js"></script>
+    <script type="module" src="./scripts/TestData.js"></script>
+    <script               src="./scripts/DevMenu.js"></script>
+    <script type="module" src="./scripts/Can.js"></script>
+    
 </body>
 
 

@@ -3,7 +3,7 @@
     var text = document.getElementById('rpm');
     var text2 = document.getElementById('soc');
     var text3 = document.getElementById('error');
-    high error: screen turns red
+    //high error: screen turns red
     if (num == 3) {
         body.style.backgroundColor = "red"; 
         text.style.color = "white";
@@ -18,7 +18,7 @@
         text2.style.color = "black";
         text3.style.color = "red";
         text3.style.display = "block";
-    low error: screen turns blue    
+    //low error: screen turns blue    
     }
     else if (num == 1) {
         body.style.backgroundColor = "#ADD8E6"; //blue
@@ -34,7 +34,7 @@
         text2.style.color = "black";
         text3.style.display = "none";
     }
-    screen changes back to loading screen
+   // screen changes back to loading screen
     else if (num == 4) {
         document.location.replace("stateMachine.html");        
     }

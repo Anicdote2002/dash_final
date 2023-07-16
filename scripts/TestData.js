@@ -1,6 +1,12 @@
 // Continuous loop writing new values to the screen
+// Only use test data if "dev" Node env var is present
+// Examples: dev=1 npm start, dev=0 npm start, dev=lsjdkl npm start
+
 function write_data() {    
     // update other things less often
+    //console.log('write_data() function called');
+  // Rest of the cod
+    //setTimeout(write_data, 100);
     if (counter > 50) {
       curr_soc -= 1.1;
       curr_mctemp += 0.01;
@@ -77,5 +83,5 @@ function write_data() {
 // Only use test data if "dev" Node env var is present
 // Examples: dev=1 npm start, dev=0 npm start, dev=lsjdkl npm start
 if (process.env.dev) {
-    write_data();
+  write_data();
 }
